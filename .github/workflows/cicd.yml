@@ -18,6 +18,6 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Webpack
-        run: npm run build
+        run: CI= npm run build
       - name: FRONTEND Deploy to S3
         run: aws s3 sync build s3://ecc-shopdb
