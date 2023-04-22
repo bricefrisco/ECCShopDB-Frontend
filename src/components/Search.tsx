@@ -30,9 +30,10 @@ const Search = ({ getOptions, label }: Props) => {
   }, [getOptions]);
 
   useEffect(() => {
-    if (searchParams.get("q")) {
-      const option = options.find((o) => o.value === searchParams.get("q"));
-      setValue(option);
+    const q = searchParams.get("q");
+    if (q) {
+      const decoded = decodeURIComponent(q);
+      setValue({ value: decoded, label: decoded });
     } else {
       setValue(undefined);
     }
