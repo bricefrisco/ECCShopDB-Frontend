@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import CopyButton from "./CopyButton";
+import { useMemo } from "react";
 
 export type ChestShopProps = {
   buyPrice: number;
@@ -28,9 +29,13 @@ export type ChestShopProps = {
 };
 
 const ChestShop = (props: ChestShopProps) => {
-  const price = props.tradeType === "buy" ? props.buyPrice : props.sellPrice;
-  const priceEach =
-    props.tradeType === "buy" ? props.buyPriceEach : props.sellPriceEach;
+  const price = useMemo(() => {
+    return props.tradeType === "buy" ? props.buyPrice : props.sellPrice;
+  }, [props.tradeType, props.buyPrice, props.sellPrice]);
+
+  const priceEach = useMemo(() => {
+    return props.tradeType === "buy" ? props.buyPriceEach : props.sellPriceEach;
+  }, [props.tradeType, props.buyPriceEach, props.sellPriceEach]);
 
   return (
     <div className="flex flex-col rounded-lg border border-gray-700 bg-gray-800 p-6 shadow-md">
@@ -89,11 +94,7 @@ const ChestShop = (props: ChestShopProps) => {
 
               {props.quantity > 1 && (
                 <span className="mt-1 ml-1 text-sm font-normal text-gray-400">
-                  ($
-                  {`${Math.floor(priceEach).toLocaleString()}.${
-                    priceEach.toFixed(2).toString().split(".")[1]
-                  }`}
-                  /Count)
+                  (${priceEach.toFixed(2)}/Count)
                 </span>
               )}
             </div>
