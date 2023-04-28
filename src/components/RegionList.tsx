@@ -50,6 +50,8 @@ const RegionList = ({
   }, [server, hideUnlisted]);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchRegions = async () => {
       setLoading(true);
 
@@ -68,13 +70,15 @@ const RegionList = ({
         url.searchParams.append("name", name);
       }
 
-      const res = await fetch(url);
+      const res = await fetch(url, { signal: controller.signal });
       const json = (await res.json()) as ShopDBAPIResponse;
       setData(json);
       setLoading(false);
     };
 
     fetchRegions();
+
+    return () => controller.abort();
   }, [name, server, hideUnlisted, pageSize, page, sort]);
 
   if (loading) {

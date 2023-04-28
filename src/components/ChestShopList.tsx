@@ -60,6 +60,8 @@ const ChestShopList = ({
   }, [server, tradeType]);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchChestShops = async () => {
       setLoading(true);
 
@@ -82,7 +84,7 @@ const ChestShopList = ({
         url.searchParams.append("server", server);
       }
 
-      const res = await fetch(url);
+      const res = await fetch(url, { signal: controller.signal });
       const data = (await res.json()) as ShopDBAPIResponse;
 
       setData({
@@ -94,6 +96,8 @@ const ChestShopList = ({
     };
 
     fetchChestShops();
+
+    return () => controller.abort();
   }, [
     item,
     tradeType,

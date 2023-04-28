@@ -48,10 +48,13 @@ const Region = () => {
   const lowerName = name?.toLowerCase();
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchRegion = async () => {
       setLoading(true);
       const response = await fetch(
-        `https://api.shopdb.ecocitycraft.com/api/v3/regions/${server}/${lowerName}`
+        `https://api.shopdb.ecocitycraft.com/api/v3/regions/${server}/${lowerName}`,
+        { signal: controller.signal }
       );
 
       if (response.status === 404) {
@@ -65,6 +68,8 @@ const Region = () => {
     };
 
     fetchRegion();
+
+    return () => controller.abort();
   }, [server, lowerName]);
 
   useEffect(() => {
@@ -255,11 +260,14 @@ const RegionChestShops = ({
   const lowerName = name?.toLowerCase();
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchChestShops = async () => {
       setLoading(true);
 
       const response = await fetch(
-        `https://api.shopdb.ecocitycraft.com/api/v3/regions/${server}/${lowerName}/chest-shops?tradeType=${tradeType}&page=${page}&pageSize=${pageSize}`
+        `https://api.shopdb.ecocitycraft.com/api/v3/regions/${server}/${lowerName}/chest-shops?tradeType=${tradeType}&page=${page}&pageSize=${pageSize}`,
+        { signal: controller.signal }
       );
       const data = await response.json();
       setData({
@@ -273,6 +281,8 @@ const RegionChestShops = ({
     };
 
     fetchChestShops();
+
+    return () => controller.abort();
   }, [server, lowerName, tradeType, page, pageSize]);
 
   if (loading || !data) {
@@ -329,11 +339,14 @@ const RegionMayors = ({ server, name }: RegionMayorsProps) => {
   const pageSize = 50;
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchMayors = async () => {
       setLoading(true);
 
       const response = await fetch(
-        `https://api.shopdb.ecocitycraft.com/api/v3/regions/${server}/${name}/players?page=${page}&pageSize=${pageSize}`
+        `https://api.shopdb.ecocitycraft.com/api/v3/regions/${server}/${name}/players?page=${page}&pageSize=${pageSize}`,
+        { signal: controller.signal }
       );
       const data = await response.json();
       setData(data);
@@ -341,6 +354,8 @@ const RegionMayors = ({ server, name }: RegionMayorsProps) => {
     };
 
     fetchMayors();
+
+    return () => controller.abort();
   }, [server, name, page, pageSize]);
 
   if (loading || !data) {

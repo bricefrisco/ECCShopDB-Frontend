@@ -37,7 +37,7 @@ const Regions = () => {
 
     document.title = `${
       capitalizedRegion ? `${capitalizedRegion} - ` : ""
-    }Regions - ${page > 1 ? `Page ${page} - ` : ""}ShopDB`;
+    }Regions - ${Number(page) > 1 ? `Page ${page} - ` : ""}ShopDB`;
   }, [name, page]);
 
   return (

@@ -28,7 +28,7 @@ const Players = () => {
 
     document.title = `${
       capitalizedPlayer ? `${capitalizedPlayer} - ` : ""
-    }Players - ${page > 1 ? `Page ${page} - ` : ""}ShopDB`;
+    }Players - ${Number(page) > 1 ? `Page ${page} - ` : ""}ShopDB`;
   }, [name, page]);
 
   return (

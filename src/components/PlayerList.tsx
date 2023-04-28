@@ -37,6 +37,8 @@ const PlayerList = ({ name, page, sort, condense }: ShopDBAPIParameters) => {
   }, []);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchPlayers = async () => {
       setLoading(true);
 
@@ -50,7 +52,7 @@ const PlayerList = ({ name, page, sort, condense }: ShopDBAPIParameters) => {
         url.searchParams.append("name", name);
       }
 
-      const res = await fetch(url);
+      const res = await fetch(url, { signal: controller.signal });
       const json = (await res.json()) as ShopDBAPIResponse;
 
       setData(json);
@@ -58,6 +60,8 @@ const PlayerList = ({ name, page, sort, condense }: ShopDBAPIParameters) => {
     };
 
     fetchPlayers();
+
+    return () => controller.abort();
   }, [name, sort, page, pageSize]);
 
   if (loading) {

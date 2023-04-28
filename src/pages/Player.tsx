@@ -29,10 +29,13 @@ const Player = () => {
   const lowerName = name?.toLowerCase();
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchPlayer = async () => {
       setLoading(true);
       const response = await fetch(
-        `https://api.shopdb.ecocitycraft.com/api/v3/players/${lowerName}`
+        `https://api.shopdb.ecocitycraft.com/api/v3/players/${lowerName}`,
+        { signal: controller.signal }
       );
 
       if (response.status === 204) {
@@ -46,6 +49,8 @@ const Player = () => {
     };
 
     fetchPlayer();
+
+    return () => controller.abort();
   }, [lowerName]);
 
   useEffect(() => {
@@ -162,10 +167,13 @@ const PlayerChestShops = ({ name, tradeType }: PlayerChestShopProps) => {
   const pageSize = 50;
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchPlayerChestShops = async () => {
       setLoading(true);
       const response = await fetch(
-        `https://api.shopdb.ecocitycraft.com/api/v3/players/${name}/chest-shops?tradeType=${tradeType}&page=${page}&pageSize=${pageSize}`
+        `https://api.shopdb.ecocitycraft.com/api/v3/players/${name}/chest-shops?tradeType=${tradeType}&page=${page}&pageSize=${pageSize}`,
+        { signal: controller.signal }
       );
 
       const data: ShopDBChestShopsResponse = await response.json();
@@ -180,6 +188,8 @@ const PlayerChestShops = ({ name, tradeType }: PlayerChestShopProps) => {
     };
 
     fetchPlayerChestShops();
+
+    return () => controller.abort();
   }, [name, page, pageSize, tradeType]);
 
   if (loading || !data) {
@@ -235,16 +245,22 @@ const PlayerRegions = ({ name }: PlayerRegionsProps) => {
   const pageSize = 50;
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchPlayerRegions = async () => {
       setLoading(true);
       const response = await fetch(
-        `https://api.shopdb.ecocitycraft.com/api/v3/players/${name}/regions?page=${page}&pageSize=${pageSize}`
+        `https://api.shopdb.ecocitycraft.com/api/v3/players/${name}/regions?page=${page}&pageSize=${pageSize}`,
+        { signal: controller.signal }
       );
       const data = await response.json();
       setData(data);
       setLoading(false);
     };
+
     fetchPlayerRegions();
+
+    return () => controller.abort();
   }, [name, page, pageSize]);
 
   if (loading || !data) {
