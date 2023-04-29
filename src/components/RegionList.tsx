@@ -183,7 +183,7 @@ export const RegionTable = ({ data, hideUnlisted, server }: TableProps) => {
                 </span>
               </Link>
             </Td>
-            <Td>{region.mayors.length}</Td>
+            <Td>{region.numMayors}</Td>
             <Td>{region.numChestShops}</Td>
             {server === "all" && <Td>{region.server}</Td>}
             {!hideUnlisted && <Td>{region.active.toString()}</Td>}

@@ -28,10 +28,8 @@ type ShopDBAPIResponse = {
     z: number;
   };
   numChestShops: number;
+  numMayors: number;
   active: boolean;
-  mayors: {
-    name: string;
-  }[];
   lastUpdated: string;
 };
 
@@ -124,9 +122,9 @@ const Region = () => {
                   </div>
                   <div className="mt-1.5 text-xl">
                     <span className="font-bold">
-                      {data?.mayors.length === 0 ? "No" : data?.mayors.length}{" "}
+                      {data?.numMayors === 0 ? "No" : data?.numMayors}{" "}
                     </span>
-                    {data?.mayors.length === 1 ? "Mayor" : "Mayors"}
+                    {data?.numMayors === 1 ? "Mayor" : "Mayors"}
                   </div>
                   <div className="text-xl">
                     <span className="font-bold">

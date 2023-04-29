@@ -144,7 +144,7 @@ export const PlayerTable = ({ data }: PlayerTableProps) => {
                 </span>
               </Link>
             </Td>
-            <Td>{player.towns.length}</Td>
+            <Td>{player.numRegions.toLocaleString()}</Td>
             <Td>{player.numChestShops.toLocaleString()}</Td>
           </Tr>
         ))}
