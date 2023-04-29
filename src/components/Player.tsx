@@ -3,13 +3,10 @@ import { Link } from "react-router-dom";
 export type PlayerProps = {
   name: string;
   numChestShops: number;
-  towns: {
-    name: string;
-    server: string;
-  }[];
+  numRegions: number;
 };
 
-const Player = ({ name, numChestShops, towns }: PlayerProps) => {
+const Player = ({ name, numChestShops, numRegions }: PlayerProps) => {
   return (
     <div className="flex flex-col rounded-lg border border-gray-700 bg-gray-800 p-6 shadow-md">
       <div className="flex place-content-between items-start">
@@ -31,9 +28,9 @@ const Player = ({ name, numChestShops, towns }: PlayerProps) => {
       </span>
       <span className="mt-2 text-white">
         <span className="font-bold">
-          {towns.length === 0 ? "No" : towns.length}{" "}
+          {numRegions === 0 ? "No" : numRegions}{" "}
         </span>
-        {towns.length === 1 ? "Region" : "Regions"}
+        {numRegions === 1 ? "Region" : "Regions"}
       </span>
       <span className="text-white">
         <span className="font-bold">

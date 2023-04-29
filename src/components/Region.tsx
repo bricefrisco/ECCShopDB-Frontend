@@ -17,8 +17,8 @@ export type RegionProps = {
     z: number;
   };
   numChestShops: number;
+  numMayors: number;
   active: boolean;
-  mayors: string[];
 };
 
 const Region = (props: RegionProps) => {
@@ -51,9 +51,9 @@ const Region = (props: RegionProps) => {
           </span>
           <span className="mt-2 text-white">
             <span className="font-bold">
-              {props.mayors.length === 0 ? "No" : props.mayors.length}{" "}
+              {props.numMayors === 0 ? "No" : props.numMayors}{" "}
             </span>
-            {props.mayors.length === 1 ? "Mayor" : "Mayors"}
+            {props.numMayors === 1 ? "Mayor" : "Mayors"}
           </span>
           <span className="text-white">
             <span className="font-bold">
@@ -78,10 +78,6 @@ const Region = (props: RegionProps) => {
         <CopyButton id={`warp-${props.name}`} copyText={`/warp ${props.name}`}>
           Warp
         </CopyButton>
-
-        {/* <span className="mt-2 inline-flex cursor-pointer items-center self-end rounded-lg border border-gray-600 bg-gray-800 px-2 py-1 text-center text-sm font-medium text-white hover:border-gray-700 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-700">
-          Warp
-        </span> */}
       </div>
     </div>
   );

@@ -13,10 +13,7 @@ import Tabs from "../components/Tabs";
 type ShopDBAPIResponse = {
   name: string;
   numChestShops: number;
-  towns: {
-    name: string;
-    server: string;
-  }[];
+  numRegions: number;
 };
 
 const Player = () => {
@@ -99,9 +96,9 @@ const Player = () => {
                 <div className="text-2xl font-bold capitalize">{lowerName}</div>
                 <div className="mt-1.5 text-xl">
                   <span className="font-bold">
-                    {data?.towns.length === 0 ? "No" : data?.towns.length}{" "}
+                    {data?.numRegions === 0 ? "No" : data?.numRegions}{" "}
                   </span>
-                  {data?.towns.length === 1 ? "Region" : "Regions"}
+                  {data?.numRegions === 1 ? "Region" : "Regions"}
                 </div>
                 <div className="text-xl">
                   <span className="font-bold">
